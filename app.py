@@ -1,9 +1,11 @@
 import os
 from flask import Flask, render_template
 from flask_socketio import SocketIO, send
+from flask_cors import CORS
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
+CORS(app)
 socketio = SocketIO(app)
 
 @app.route('/')
@@ -12,7 +14,8 @@ def index():
 
 @socketio.on('message')
 def handle_message(msg):
-    send(msg, broadcast=True)
+    print('Received message: ' + msg)  # Logging for debugging
+    send(msg, broadcast=True)  # Broadcast the message to all clients
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
