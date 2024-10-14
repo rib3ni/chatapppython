@@ -6,6 +6,27 @@
     <title>Real-Time Chat</title>
     <link rel="stylesheet" href="static/styles.css"> <!-- Link to external CSS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
+    <style>
+        /* Add some basic styles for the chat container */
+        .chat-container {
+            width: 400px;
+            margin: auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+
+        #messages {
+            height: 300px;
+            overflow-y: auto; /* Enable vertical scrolling */
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+    </style>
 </head>
 <body>
     <div class="chat-container">
@@ -60,7 +81,10 @@
             socket.on('message', (data) => {
                 const li = document.createElement("li");
                 li.appendChild(document.createTextNode(`${data.user}: ${data.msg}`));
-                document.querySelector('#messages').appendChild(li);
+                messagesContainer.appendChild(li);
+                
+                // Automatically scroll to the bottom of the chat
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
             });
 
             // Send message when the send button is clicked
