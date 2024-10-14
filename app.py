@@ -10,11 +10,12 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 def index():
     return render_template('index.html')
 
+# Handle incoming messages
 @socketio.on('message')
 def handle_message(data):
-    # 'data' will be a dictionary containing 'user' and 'msg'
+    # data will be a dictionary containing 'user' and 'msg'
     print(f"Message from {data['user']}: {data['msg']}")
-    send(data, broadcast=True)
+    send(data, broadcast=True)  # Broadcast message to all users
 
 if __name__ == '__main__':
     socketio.run(app)

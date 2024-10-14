@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Real-Time Chat</title>
-    <link rel="stylesheet" href="static/styles.css"> <!-- Link to external CSS -->
+    <link rel="stylesheet" href="static/styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
 </head>
 <body>
     <div class="chat-container">
         <h1>Real-Time Chat</h1>
-        <input id="username" type="text" placeholder="Enter your name"> <!-- User inputs their name -->
-        <ul id="messages"></ul>  <!-- This will display messages -->
+        <input id="username" type="text" placeholder="Enter your name"> <!-- Name input field -->
+        <ul id="messages"></ul>  <!-- Messages display here -->
         <input id="message" type="text" placeholder="Type a message">
         <button id="sendBtn">Send</button>
     </div>
@@ -21,31 +21,35 @@
             const socket = io.connect(window.location.origin);
             let username = '';
 
-            // Prompt user to enter a name when connecting
+            // Ensure the user enters a name before sending messages
             document.getElementById('username').addEventListener('blur', () => {
-                username = document.querySelector('#username').value;
+                username = document.querySelector('#username').value.trim();
                 if (username === '') {
-                    alert('Please enter your name to join the chat.');
+                    alert('Please enter your name to participate in the chat.');
                 }
             });
 
+            // Handle connection event
             socket.on('connect', () => {
-                socket.send({ user: 'System', msg: 'A new user has joined!' });
+                socket.send({ user: 'System', msg: 'A new user has joined the chat!' });
             });
 
+            // Receive and display messages
             socket.on('message', (data) => {
                 const li = document.createElement("li");
-                li.appendChild(document.createTextNode(`${data.user}: ${data.msg}`));
+                li.appendChild(document.createTextNode(`${data.user}: ${data.msg}`)); // Display user + message
                 document.querySelector('#messages').appendChild(li);
             });
 
+            // Send message when the send button is clicked
             document.querySelector('#sendBtn').onclick = () => {
-                const message = document.querySelector('#message').value;
+                const message = document.querySelector('#message').value.trim();
                 if (message && username) {
+                    // Send the message with the user's name
                     socket.send({ user: username, msg: message });
-                    document.querySelector('#message').value = '';
+                    document.querySelector('#message').value = ''; // Clear message input field
                 } else if (!username) {
-                    alert('Please enter your name to send a message.');
+                    alert('Please enter your name before sending a message.');
                 }
             };
         });
