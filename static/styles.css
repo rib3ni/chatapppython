@@ -115,31 +115,3 @@ h1 {
     background-color: #0056b3;
 }
 
-
-/* General container styles */
-.chat-container {
-    width: 400px; /* Adjust the width as needed */
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background-color: white; /* White background */
-    position: relative; /* This will allow positioning child elements */
-}
-
-/* Logout icon styling */
-#logout-icon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-}
-
-/* Hidden class to hide elements */
-.hidden {
-    display: none;
-}
-
-/* Add any other styles you have 

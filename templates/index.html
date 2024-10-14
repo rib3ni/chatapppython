@@ -11,9 +11,6 @@
     <div class="chat-container">
         <h1>Real-Time Chat</h1>
 
-        <!-- Logout icon, hidden initially -->
-        <img id="logout-icon" src="https://cdn-icons-png.flaticon.com/128/3889/3889524.png" alt="Logout" title="Logout" class="hidden"/>
-
         <!-- Username input section -->
         <div id="username-container">
             <input id="username" type="text" placeholder="Enter your name">
@@ -42,7 +39,6 @@
             const usernameContainer = document.getElementById('username-container');
             const messagesContainer = document.getElementById('messages');
             const chatControls = document.getElementById('chat-controls');
-            const logoutIcon = document.getElementById('logout-icon');
 
             // Enable message input and show chat controls after username is entered
             submitNameBtn.addEventListener('click', () => {
@@ -52,22 +48,9 @@
                     usernameContainer.style.display = 'none';
                     messagesContainer.classList.remove('hidden');
                     chatControls.classList.remove('hidden');
-                    logoutIcon.classList.remove('hidden'); // Show logout icon
                 } else {
                     alert('Please enter a valid name.');
                 }
-            });
-
-            // Handle logout icon click
-            logoutIcon.addEventListener('click', () => {
-                // Reset the app to the initial state (asking for username)
-                username = '';
-                usernameInput.value = '';
-                usernameContainer.style.display = 'block';
-                messagesContainer.classList.add('hidden');
-                chatControls.classList.add('hidden');
-                logoutIcon.classList.add('hidden'); // Hide logout icon
-                messagesContainer.innerHTML = ''; // Clear all messages
             });
 
             socket.on('connect', () => {
