@@ -25,11 +25,6 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             background-color: #fff;
-            list-style-type: none; /* Remove bullet points from list */
-        }
-
-        .hidden {
-            display: none;
         }
     </style>
 </head>
@@ -108,16 +103,8 @@
             function sendMessage() {
                 const message = messageInput.value.trim();
                 if (message) {
-                    const li = document.createElement("li");
-                    li.appendChild(document.createTextNode(`${username}: ${message}`));
-                    messagesContainer.appendChild(li);
-
-                    // Send the message to the server
                     socket.send({ user: username, msg: message });
                     messageInput.value = '';
-
-                    // Automatically scroll to the bottom of the chat
-                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
                 }
             }
         });
