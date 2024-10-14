@@ -4,52 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Real-Time Chat</title>
-    <link rel="stylesheet" href="static/styles.css">
+    <link rel="stylesheet" href="static/styles.css"> <!-- Link to external CSS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
 </head>
 <body>
     <div class="chat-container">
         <h1>Real-Time Chat</h1>
-        <input id="username" type="text" placeholder="Enter your name"> <!-- Name input field -->
-        <ul id="messages"></ul>  <!-- Messages display here -->
-        <input id="message" type="text" placeholder="Type a message">
-        <button id="sendBtn">Send</button>
+        
+        <!-- Username input section -->
+        <div id="username-container">
+            <input id="username" type="text" placeholder="Enter your name">
+            <button id="submit-name-btn">Submit</button>
+        </div>
+
+        <!-- Chat section, hidden initially -->
+        <ul id="messages" class="hidden"></ul>
+        <input id="message" type="text" placeholder="Type a message" disabled>
+        <button id="sendBtn" disabled>Send</button>
     </div>
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const socket = io.connect(window.location.origin);
             let username = '';
 
-            // Ensure the user enters a name before sending messages
-            document.getElementById('username').addEventListener('blur', () => {
-                username = document.querySelector('#username').value.trim();
-                if (username === '') {
-                    alert('Please enter your name to participate in the chat.');
+            const usernameInput = document.getElementById('username');
+            const messageInput = document.getElementById('message');
+            const sendBtn = document.getElementById('sendBtn');
+            const submitNameBtn = document.getElementById('submit-name-btn');
+            const usernameContainer = document.getElementById('username-container');
+            const messagesContainer = document.getElementById('messages');
+
+            // Enable message input after username is entered
+            submitNameBtn.addEventListener('click', () => {
+                username = usernameInput.value.trim();
+                if (username !== '') {
+                    // Hide username input and enable chat input
+                    usernameContainer.style.display = 'none';
+                    messagesContainer.classList.remove('hidden');
+                    messageInput.disabled = false;
+                    sendBtn.disabled = false;
+                } else {
+                    alert('Please enter a valid name.');
                 }
             });
 
-            // Handle connection event
             socket.on('connect', () => {
                 socket.send({ user: 'System', msg: 'A new user has joined the chat!' });
             });
 
-            // Receive and display messages
+            // Handle incoming messages
             socket.on('message', (data) => {
                 const li = document.createElement("li");
-                li.appendChild(document.createTextNode(`${data.user}: ${data.msg}`)); // Display user + message
+                li.appendChild(document.createTextNode(`${data.user}: ${data.msg}`));
                 document.querySelector('#messages').appendChild(li);
             });
 
             // Send message when the send button is clicked
-            document.querySelector('#sendBtn').onclick = () => {
-                const message = document.querySelector('#message').value.trim();
-                if (message && username) {
-                    // Send the message with the user's name
+            sendBtn.onclick = () => {
+                const message = messageInput.value.trim();
+                if (message) {
                     socket.send({ user: username, msg: message });
-                    document.querySelector('#message').value = ''; // Clear message input field
-                } else if (!username) {
-                    alert('Please enter your name before sending a message.');
+                    messageInput.value = '';
                 }
             };
         });
