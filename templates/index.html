@@ -49,16 +49,11 @@
                     messagesContainer.classList.remove('hidden');
                     chatControls.classList.remove('hidden');
 
-                    // Send message to the chat that the user has joined
+                    // Send a message to the chat indicating the user has joined
                     socket.send({ user: 'System', msg: `${username} has joined the chat!` });
                 } else {
                     alert('Please enter a valid name.');
                 }
-            });
-
-            socket.on('connect', () => {
-                // Automatically send a message when connecting, if needed
-                // socket.send({ user: 'System', msg: 'A new user has joined the chat!' });
             });
 
             // Handle incoming messages
