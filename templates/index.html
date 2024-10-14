@@ -66,12 +66,24 @@
 
             // Send message when the send button is clicked
             sendBtn.onclick = () => {
+                sendMessage();
+            };
+
+            // Send message when "Enter" key is pressed
+            messageInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+
+            // Function to send a message
+            function sendMessage() {
                 const message = messageInput.value.trim();
                 if (message) {
                     socket.send({ user: username, msg: message });
                     messageInput.value = '';
                 }
-            };
+            }
         });
     </script>
 </body>
