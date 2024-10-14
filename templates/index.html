@@ -28,24 +28,6 @@
             list-style-type: none; /* Remove bullet points from list */
         }
 
-        /* Style for sent messages */
-        .sent-message {
-            text-align: left;
-            margin: 5px;
-            padding: 5px;
-            background-color: #e0f7fa; /* Light blue background */
-            border-radius: 5px;
-        }
-
-        /* Style for received messages */
-        .received-message {
-            text-align: right;
-            margin: 5px;
-            padding: 5px;
-            background-color: #ffe0b2; /* Light orange background */
-            border-radius: 5px;
-        }
-
         .hidden {
             display: none;
         }
@@ -103,7 +85,6 @@
             // Handle incoming messages
             socket.on('message', (data) => {
                 const li = document.createElement("li");
-                li.classList.add("received-message"); // Add class for received messages
                 li.appendChild(document.createTextNode(`${data.user}: ${data.msg}`));
                 messagesContainer.appendChild(li);
                 
@@ -128,7 +109,6 @@
                 const message = messageInput.value.trim();
                 if (message) {
                     const li = document.createElement("li");
-                    li.classList.add("sent-message"); // Add class for sent messages
                     li.appendChild(document.createTextNode(`${username}: ${message}`));
                     messagesContainer.appendChild(li);
 
