@@ -24,6 +24,23 @@ h1 {
     padding: 20px;
 }
 
+/* Input field for username */
+#username {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 2px solid #007BFF;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+#username:focus {
+    border-color: #0056b3;
+}
+
 /* Messages list */
 #messages {
     list-style-type: none;
@@ -45,7 +62,7 @@ h1 {
     font-size: 14px;
 }
 
-/* Input field */
+/* Input field for messages */
 #message {
     width: 100%;
     padding: 12px;
