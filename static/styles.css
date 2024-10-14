@@ -114,3 +114,14 @@ h1 {
 #sendBtn:hover {
     background-color: #0056b3;
 }
+
+
+/* Logout icon styling */
+#logout-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}

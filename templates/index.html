@@ -9,6 +9,9 @@
 </head>
 <body>
     <div class="chat-container">
+        <!-- Updated logout icon with external image link -->
+        <img id="logout-icon" src="https://cdn-icons-png.flaticon.com/128/3889/3889524.png" alt="Logout" title="Logout" />
+
         <h1>Real-Time Chat</h1>
         
         <!-- Username input section -->
@@ -39,6 +42,7 @@
             const usernameContainer = document.getElementById('username-container');
             const messagesContainer = document.getElementById('messages');
             const chatControls = document.getElementById('chat-controls');
+            const logoutIcon = document.getElementById('logout-icon');
 
             // Enable message input and show chat controls after username is entered
             submitNameBtn.addEventListener('click', () => {
@@ -51,6 +55,17 @@
                 } else {
                     alert('Please enter a valid name.');
                 }
+            });
+
+            // Handle logout icon click
+            logoutIcon.addEventListener('click', () => {
+                // Reset the app to the initial state (asking for username)
+                username = '';
+                usernameInput.value = '';
+                usernameContainer.style.display = 'block';
+                messagesContainer.classList.add('hidden');
+                chatControls.classList.add('hidden');
+                messagesContainer.innerHTML = ''; // Clear all messages
             });
 
             socket.on('connect', () => {
