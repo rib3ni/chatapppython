@@ -19,8 +19,12 @@
 
         <!-- Chat section, hidden initially -->
         <ul id="messages" class="hidden"></ul>
-        <input id="message" type="text" placeholder="Type a message" disabled>
-        <button id="sendBtn" disabled>Send</button>
+
+        <!-- Hidden message input and send button initially -->
+        <div id="chat-controls" class="hidden">
+            <input id="message" type="text" placeholder="Type a message">
+            <button id="sendBtn">Send</button>
+        </div>
     </div>
 
     <script>
@@ -34,16 +38,16 @@
             const submitNameBtn = document.getElementById('submit-name-btn');
             const usernameContainer = document.getElementById('username-container');
             const messagesContainer = document.getElementById('messages');
+            const chatControls = document.getElementById('chat-controls');
 
-            // Enable message input after username is entered
+            // Enable message input and show chat controls after username is entered
             submitNameBtn.addEventListener('click', () => {
                 username = usernameInput.value.trim();
                 if (username !== '') {
-                    // Hide username input and enable chat input
+                    // Hide username input and show chat input
                     usernameContainer.style.display = 'none';
                     messagesContainer.classList.remove('hidden');
-                    messageInput.disabled = false;
-                    sendBtn.disabled = false;
+                    chatControls.classList.remove('hidden');
                 } else {
                     alert('Please enter a valid name.');
                 }

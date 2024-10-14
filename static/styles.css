@@ -29,7 +29,7 @@ h1 {
     margin-bottom: 10px;
 }
 
-/* Hidden elements (used to hide chat area until username is entered) */
+/* Hidden elements */
 .hidden {
     display: none;
 }
