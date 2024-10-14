@@ -1,22 +1,20 @@
-import os
 from flask import Flask, render_template
 from flask_socketio import SocketIO, send
 from flask_cors import CORS
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your_secret_key'
 CORS(app)
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
 @socketio.on('message')
-def handle_message(msg):
-    print('Received message: ' + msg)  # Logging for debugging
-    send(msg, broadcast=True)  # Broadcast the message to all clients
+def handle_message(data):
+    # 'data' will be a dictionary containing 'user' and 'msg'
+    print(f"Message from {data['user']}: {data['msg']}")
+    send(data, broadcast=True)
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    socketio.run(app, host='0.0.0.0', port=port)
+    socketio.run(app)
