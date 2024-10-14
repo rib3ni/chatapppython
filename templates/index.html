@@ -4,7 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Real-Time Chat</title>
+    <link rel="stylesheet" href="static/styles.css"> <!-- Link to the external CSS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
+</head>
+<body>
+    <div class="chat-container">
+        <h1>Real-Time Chat</h1>
+        <ul id="messages"></ul>  <!-- This will display messages -->
+        <input id="message" type="text" placeholder="Type a message">
+        <button id="sendBtn">Send</button>
+    </div>
+    
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             var socket = io.connect(window.location.origin);  // Automatically connect using the right URL
@@ -21,16 +31,10 @@
 
             document.querySelector('#sendBtn').onclick = () => {
                 var message = document.querySelector('#message').value;
-                socket.send(message);  // Emit the message
-                document.querySelector('#message').value = '';  // Clear the input field
+                socket.send(message);
+                document.querySelector('#message').value = '';
             };
         });
     </script>
-</head>
-<body>
-    <h1>Real-Time Chat</h1>
-    <ul id="messages"></ul>
-    <input id="message" type="text">
-    <button id="sendBtn">Send</button>
 </body>
 </html>
