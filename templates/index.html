@@ -9,11 +9,11 @@
 </head>
 <body>
     <div class="chat-container">
-        <!-- Updated logout icon with external image link -->
-        <img id="logout-icon" src="https://cdn-icons-png.flaticon.com/128/3889/3889524.png" alt="Logout" title="Logout" />
-
         <h1>Real-Time Chat</h1>
-        
+
+        <!-- Logout icon, hidden initially -->
+        <img id="logout-icon" src="https://cdn-icons-png.flaticon.com/128/3889/3889524.png" alt="Logout" title="Logout" class="hidden"/>
+
         <!-- Username input section -->
         <div id="username-container">
             <input id="username" type="text" placeholder="Enter your name">
@@ -52,6 +52,7 @@
                     usernameContainer.style.display = 'none';
                     messagesContainer.classList.remove('hidden');
                     chatControls.classList.remove('hidden');
+                    logoutIcon.classList.remove('hidden'); // Show logout icon
                 } else {
                     alert('Please enter a valid name.');
                 }
@@ -65,6 +66,7 @@
                 usernameContainer.style.display = 'block';
                 messagesContainer.classList.add('hidden');
                 chatControls.classList.add('hidden');
+                logoutIcon.classList.add('hidden'); // Hide logout icon
                 messagesContainer.innerHTML = ''; // Clear all messages
             });
 
