@@ -39,7 +39,8 @@ Or you can run this project locally, follow these steps:
    
 5. Open your browser and go to http://127.0.0.1:5000.
 
-Usage
+## Usage
+
 1. Open the application in multiple browser tabs or windows.
 2. Enter your name and select a chat room.
 3. Start chatting with other users!
