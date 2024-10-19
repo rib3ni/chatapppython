@@ -14,6 +14,6 @@ def handle_message(data):
     # data will be a dictionary containing 'user' and 'msg'
     print(f"Message from {data['user']}: {data['msg']}")
     send(data, broadcast=True)  # Broadcast message to all users
-
-if __name__ == '__main__':
-    socketio.run(app)
+    
+if __name__ == "__main__":
+    socketio.run(app, host='0.0.0.0', port=5000)
